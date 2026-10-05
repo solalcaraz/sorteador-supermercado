@@ -1,233 +1,76 @@
 package igu;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
+import java.time.format.TextStyle;
+import java.util.Locale;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logica.Sorteo;
 
-public class Principal extends javax.swing.JFrame {
+public class Principal extends JFrame {
+
+    private static final int MARGEN = 24;
+
+    private final JComboBox<String> cmbMes = new JComboBox<>(nombresDeMeses());
+    private final JTextField txtCantGanadores = new JTextField();
+    private final JButton btnSortear = new JButton("Sortear", icono("bolillero.png", 32));
+    private final JButton btnCerrarSorteo = new JButton("Cerrar sorteo", icono("limpiar.png", 24));
+    private final JLabel lblEstado = new JLabel(" ");
+    private final DefaultTableModel modeloGanadores = new DefaultTableModel(new Object[]{"Posición", "Número"}, 0) {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
 
     private Sorteo sorteo;
 
     public Principal() {
-        initComponents();
-    }
+        super("Sorteador Supermercado");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setIconImage(icono("carrito.png", 64).getImage());
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+        JPanel contenido = new JPanel(new BorderLayout(MARGEN, MARGEN));
+        contenido.setBorder(BorderFactory.createEmptyBorder(MARGEN, MARGEN, MARGEN, MARGEN));
+        contenido.add(crearEncabezado(), BorderLayout.NORTH);
+        contenido.add(crearPanelDatos(), BorderLayout.WEST);
+        contenido.add(crearPanelGanadores(), BorderLayout.CENTER);
+        setContentPane(contenido);
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        cmbMes = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        txtCantGanadores = new javax.swing.JTextField();
-        btnSortear = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblGanadores = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setText("Datos del sorteo");
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setText("Mes del sorteo");
-
-        cmbMes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cmbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setText("Cant. Ganadores");
-
-        txtCantGanadores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-
-        btnSortear.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        btnSortear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bolillero.png"))); // NOI18N
-        btnSortear.setText("Sortear");
-        btnSortear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSortearActionPerformed(evt);
-            }
-        });
-
-        btnLimpiar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
-        btnLimpiar.setText("Cerrar Sorteo");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCantGanadores, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbMes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSortear, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtCantGanadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnSortear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(52, 52, 52)
-                .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(235, 235, 235))
-        );
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setText("Ganadores");
-
-        tblGanadores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        tblGanadores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Posición", "Número"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblGanadores);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel1.setText("Sorteador Supermercado");
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/carrito.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(51, 51, 51)
-                .addComponent(jLabel1)
-                .addGap(93, 93, 93))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        btnSortear.addActionListener(e -> sortear());
+        btnCerrarSorteo.addActionListener(e -> cerrarSorteo());
+        // Enter sortea desde cualquier campo, y FlatLaf lo resalta como botón principal.
+        getRootPane().setDefaultButton(btnSortear);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+        setMinimumSize(getSize());
+    }
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        if (JOptionPane.showConfirmDialog(rootPane,
-                "¿Desea realmente finalizar el sorteo?",
-                "Finalización Sorteo",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-            sorteo = null;
-            txtCantGanadores.setText("");
-            cmbMes.setSelectedIndex(0);
-            modeloGanadores().setRowCount(0);
-            habilitarDatosDelSorteo(true);
-        }
-    }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void btnSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortearActionPerformed
+    private void sortear() {
         if (sorteo == null) {
             sorteo = crearSorteo();
             if (sorteo == null) {
@@ -239,31 +82,47 @@ public class Principal extends javax.swing.JFrame {
         }
 
         if (sorteo.estaCompleto()) {
-            JOptionPane.showMessageDialog(rootPane, "Ya se alcanzó la cantidad de ganadores.");
+            JOptionPane.showMessageDialog(this, "Ya se alcanzó la cantidad de ganadores.");
             return;
         }
 
         String ganador = sorteo.sortearGanador();
-        modeloGanadores().addRow(new Object[]{sorteo.getCantidadSorteados(), ganador});
-    }//GEN-LAST:event_btnSortearActionPerformed
+        modeloGanadores.addRow(new Object[]{sorteo.getCantidadSorteados(), ganador});
+        actualizarEstado();
+    }
+
+    private void cerrarSorteo() {
+        if (JOptionPane.showConfirmDialog(this,
+                "¿Desea realmente finalizar el sorteo?",
+                "Finalización Sorteo",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+            sorteo = null;
+            txtCantGanadores.setText("");
+            cmbMes.setSelectedIndex(0);
+            modeloGanadores.setRowCount(0);
+            habilitarDatosDelSorteo(true);
+            actualizarEstado();
+        }
+    }
 
     private Sorteo crearSorteo() {
         String cantidad = txtCantGanadores.getText().trim();
         if (cantidad.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Es necesario completar la cantidad de ganadores.");
+            JOptionPane.showMessageDialog(this, "Es necesario completar la cantidad de ganadores.");
             return null;
         }
 
-        int mes = Integer.parseInt((String) cmbMes.getSelectedItem());
+        int mes = cmbMes.getSelectedIndex() + 1;
         // El año en curso define si febrero tiene 28 o 29 días.
         YearMonth mesSorteado = YearMonth.of(Year.now().getValue(), mes);
 
         try {
             return new Sorteo(mesSorteado, Integer.parseInt(cantidad));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(rootPane, "La cantidad de ganadores tiene que ser un número entero.");
+            JOptionPane.showMessageDialog(this, "La cantidad de ganadores tiene que ser un número entero.");
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
         return null;
     }
@@ -273,26 +132,114 @@ public class Principal extends javax.swing.JFrame {
         txtCantGanadores.setEnabled(habilitar);
     }
 
-    private DefaultTableModel modeloGanadores() {
-        return (DefaultTableModel) tblGanadores.getModel();
+    private void actualizarEstado() {
+        if (sorteo == null) {
+            lblEstado.setText(" ");
+        } else if (sorteo.estaCompleto()) {
+            lblEstado.setText("Sorteo completo: " + sorteo.getCantidadGanadores() + " ganadores");
+        } else {
+            lblEstado.setText(sorteo.getCantidadSorteados() + " de " + sorteo.getCantidadGanadores() + " ganadores");
+        }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnSortear;
-    private javax.swing.JComboBox<String> cmbMes;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblGanadores;
-    private javax.swing.JTextField txtCantGanadores;
-    // End of variables declaration//GEN-END:variables
+    private JPanel crearEncabezado() {
+        JLabel titulo = new JLabel("Sorteador Supermercado");
+        titulo.putClientProperty(FlatClientProperties.STYLE_CLASS, "h1");
+        JLabel subtitulo = new JLabel("Sorteo mensual entre los códigos de participante de cada sobre");
+        subtitulo.putClientProperty(FlatClientProperties.STYLE, "foreground: $Label.disabledForeground");
 
+        JPanel textos = new JPanel();
+        textos.setLayout(new BoxLayout(textos, BoxLayout.Y_AXIS));
+        textos.add(Box.createVerticalGlue());
+        textos.add(titulo);
+        textos.add(Box.createVerticalStrut(4));
+        textos.add(subtitulo);
+        textos.add(Box.createVerticalGlue());
+
+        JPanel encabezado = new JPanel(new BorderLayout(16, 0));
+        encabezado.add(new JLabel(icono("carrito.png", 72)), BorderLayout.WEST);
+        encabezado.add(textos, BorderLayout.CENTER);
+        return encabezado;
+    }
+
+    private JPanel crearPanelDatos() {
+        txtCantGanadores.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Por ejemplo, 5");
+        btnSortear.setIconTextGap(10);
+        btnSortear.putClientProperty(FlatClientProperties.STYLE, "font: +3; margin: 6,16,6,16");
+        lblEstado.putClientProperty(FlatClientProperties.STYLE, "foreground: $Label.disabledForeground");
+
+        JPanel formulario = new JPanel(new GridBagLayout());
+        formulario.setOpaque(false);
+        agregarFila(formulario, new JLabel("Mes del sorteo"), 6);
+        agregarFila(formulario, cmbMes, 16);
+        agregarFila(formulario, new JLabel("Cantidad de ganadores"), 6);
+        agregarFila(formulario, txtCantGanadores, 24);
+        agregarFila(formulario, btnSortear, 8);
+        agregarFila(formulario, btnCerrarSorteo, 16);
+        agregarFila(formulario, lblEstado, 0);
+
+        GridBagConstraints relleno = new GridBagConstraints();
+        relleno.gridx = 0;
+        relleno.weighty = 1;
+        formulario.add(Box.createGlue(), relleno);
+
+        JPanel tarjeta = crearTarjeta("Datos del sorteo", formulario);
+        tarjeta.setPreferredSize(new Dimension(280, tarjeta.getPreferredSize().height));
+        return tarjeta;
+    }
+
+    private JPanel crearPanelGanadores() {
+        JTable tabla = new JTable(modeloGanadores);
+        tabla.setRowHeight(30);
+        tabla.setFillsViewportHeight(true);
+        tabla.setShowHorizontalLines(true);
+        tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.setPreferredScrollableViewportSize(new Dimension(360, 300));
+
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        tabla.getColumnModel().getColumn(0).setMaxWidth(100);
+
+        return crearTarjeta("Ganadores", new JScrollPane(tabla));
+    }
+
+    private JPanel crearTarjeta(String titulo, JComponent cuerpo) {
+        JLabel lblTitulo = new JLabel(titulo);
+        lblTitulo.putClientProperty(FlatClientProperties.STYLE_CLASS, "h3");
+
+        JPanel tarjeta = new JPanel(new BorderLayout(0, 16));
+        tarjeta.putClientProperty(FlatClientProperties.STYLE, "arc: 16; background: $Table.background");
+        tarjeta.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        tarjeta.add(lblTitulo, BorderLayout.NORTH);
+        tarjeta.add(cuerpo, BorderLayout.CENTER);
+        return tarjeta;
+    }
+
+    private static void agregarFila(JPanel panel, JComponent componente, int espacioDebajo) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.insets = new Insets(0, 0, espacioDebajo, 0);
+        panel.add(componente, c);
+    }
+
+    private static String[] nombresDeMeses() {
+        Locale espanol = Locale.forLanguageTag("es-AR");
+        String[] meses = new String[12];
+        for (int i = 0; i < 12; i++) {
+            String nombre = Month.of(i + 1).getDisplayName(TextStyle.FULL_STANDALONE, espanol);
+            meses[i] = String.format("%02d - %s", i + 1,
+                    nombre.substring(0, 1).toUpperCase(espanol) + nombre.substring(1));
+        }
+        return meses;
+    }
+
+    private static ImageIcon icono(String archivo, int tamanio) {
+        Image imagen = new ImageIcon(Principal.class.getResource("/imagenes/" + archivo)).getImage();
+        return new ImageIcon(imagen.getScaledInstance(tamanio, tamanio, Image.SCALE_SMOOTH));
+    }
 }

@@ -61,6 +61,7 @@ class SorteoTest {
         sorteo.sortearGanador();
 
         assertTrue(sorteo.estaCompleto());
+        assertEquals(2, sorteo.getCantidadGanadores());
         assertThrows(IllegalStateException.class, sorteo::sortearGanador);
     }
 

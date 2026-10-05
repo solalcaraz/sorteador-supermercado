@@ -54,6 +54,10 @@ public class Sorteo {
         return ganadores.size();
     }
 
+    public int getCantidadGanadores() {
+        return cantidadGanadores;
+    }
+
     private String generarCodigo() {
         int dia = random.nextInt(mes.lengthOfMonth()) + 1;
         int ticket = random.nextInt(TICKET_MAXIMO) + 1;

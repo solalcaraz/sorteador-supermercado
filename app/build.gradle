@@ -7,6 +7,8 @@ repositories {
 }
 
 dependencies {
+    implementation libs.flatlaf
+
     testImplementation libs.junit.jupiter
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -19,6 +21,9 @@ java {
 
 application {
     mainClass = 'logica.App'
+    // FlatLaf carga una librería nativa para integrarse con la ventana de Windows;
+    // desde Java 24 eso muestra un aviso si no se habilita explícitamente.
+    applicationDefaultJvmArgs = ['--enable-native-access=ALL-UNNAMED']
 }
 
 tasks.named('test') {

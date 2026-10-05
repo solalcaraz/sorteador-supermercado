@@ -1,5 +1,7 @@
 [versions]
+flatlaf = "3.7.2"
 junit-jupiter = "5.12.1"
 
 [libraries]
+flatlaf = { module = "com.formdev:flatlaf", version.ref = "flatlaf" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
