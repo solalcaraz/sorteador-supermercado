@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package igu;
 
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Solcito
- */
 public class Principal extends javax.swing.JFrame {
     
     int contSorteos = 1, minimo, maximo;
@@ -52,11 +44,6 @@ public class Principal extends javax.swing.JFrame {
 
         cmbMes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         cmbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        cmbMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMesActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Cant. Ganadores");
@@ -226,15 +213,11 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbMesActionPerformed
-
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         
         if (JOptionPane.showConfirmDialog(rootPane, 
                 "¿Desea realmente finalizar el sorteo?",
-                "Finalización Sroteo",
+                "Finalización Sorteo",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
             txtCantGanadores.setText("");
@@ -250,13 +233,11 @@ public class Principal extends javax.swing.JFrame {
     private void btnSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortearActionPerformed
         
         if(!txtCantGanadores.getText().equals("")) {
-            //traemos cantidad de ganadores
             int cantGan = Integer.parseInt(txtCantGanadores.getText());
             
             if(contSorteos <= cantGan) {
 
                 String max;
-                //rango de valores
                 mes = (String) cmbMes.getSelectedItem();
                 String min = "01";
 
@@ -273,7 +254,6 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
 
-                //sortear random
                 numRandom = new Random();
                 minimo = Integer.parseInt(min);
                 maximo = Integer.parseInt(max);
@@ -310,7 +290,6 @@ public class Principal extends javax.swing.JFrame {
         
         int largoString = (Integer.toString(randomDia).length());
         
-        //agregar los 0 al dia
         String numeroSorteado;
         if (largoString == 2) {
             numeroSorteado = randomDia + mes;
@@ -318,7 +297,6 @@ public class Principal extends javax.swing.JFrame {
             numeroSorteado = "0" + randomDia + mes;
         }
         
-        //agregar los 0 al ticket
         largoString = (Integer.toString(randomTicket).length());
         if (largoString == 3) {
             numeroSorteado = numeroSorteado + "0" + randomTicket;
@@ -366,7 +344,6 @@ public class Principal extends javax.swing.JFrame {
     }
     
     public void agregarValorTabla(int contSorteo, String numeroSorteado){
-        //controlar que no haya salido antes el número
         DefaultTableModel modelo = (DefaultTableModel) tblGanadores.getModel();
         Object[] objeto = {contSorteo, numeroSorteado};
         modelo.addRow(objeto);
